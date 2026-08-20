@@ -4,131 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RGB Workshop</title>
-    <meta
-      name="description"
-      content="上載相片、MP4 與 MP3，即時得到像 xxxxx.jpg 咁嘅直接檔案網址。"
-    />
+    <meta name="description" content="上載相片、MP4 與 MP3，即時得到像 xxxxx.jpg 咁嘅直接檔案網址。" />
     <meta property="og:title" content="RGB Workshop" />
-    <meta
-      property="og:description"
-      content="工作室媒體庫 — 公開直連 .jpg / .mp4 / .mp3"
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:description" content="工作室媒體庫 — 公開直連 .jpg / .mp4 / .mp3" />
     <meta property="og:url" content="https://hkrgb.github.io/rgb-workshop/" />
     <meta property="og:image" content="https://hkrgb.github.io/rgb-workshop/og.jpg" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #0d0d0c;
-        --surface: #161614;
-        --raised: #1e1e1b;
-        --fg: #f3f0e8;
-        --muted: #9c978c;
-        --subtle: #6e6a62;
-        --border: #2c2c28;
-        --accent: #ece7dc;
-        --accent-fg: #0d0d0c;
-        --danger: #c45c4a;
-        --r: #e24a3c;
-        --g: #3db87a;
-        --b: #4a8fd4;
+        --bg: #0d0d0c; --surface: #161614; --raised: #1e1e1b; --fg: #f3f0e8;
+        --muted: #9c978c; --subtle: #6e6a62; --border: #2c2c28; --accent: #ece7dc;
+        --accent-fg: #0d0d0c; --danger: #c45c4a; --r: #e24a3c; --g: #3db87a; --b: #4a8fd4;
         --display: "Fraunces", "Times New Roman", serif;
         --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
       }
       * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        min-height: 100dvh;
-        background: var(--bg);
-        color: var(--fg);
-        font-family: var(--sans);
-        -webkit-font-smoothing: antialiased;
-      }
-      body { padding-bottom: 64px; }
+      html, body { margin: 0; min-height: 100dvh; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      body { padding-bottom: 72px; }
       button, input, a { font-family: inherit; }
-      button:not(:disabled), [role="button"] { cursor: pointer; }
-      h1, h2 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; }
-      p { text-wrap: pretty; }
-      a { color: inherit; }
+      button:not(:disabled) { cursor: pointer; }
+      h1, h2 { font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; }
       .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
-      header {
-        position: sticky; top: 0; z-index: 20;
-        border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-        background: color-mix(in srgb, var(--bg) 85%, transparent);
-        backdrop-filter: blur(16px);
-      }
+      header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent); background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); }
       .nav { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-      .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--display); font-size: 18px; }
+      .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; font-family: var(--display); font-size: 18px; }
       .mark { display: inline-flex; gap: 4px; }
       .mark i { width: 8px; height: 8px; border-radius: 2px; display: block; }
       .mark i:nth-child(1) { background: var(--r); }
       .mark i:nth-child(2) { background: var(--g); }
       .mark i:nth-child(3) { background: var(--b); }
-      .ghost, .solid, .danger {
-        border: 0; border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500;
-      }
+      .ghost, .solid { border: 0; border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500; }
       .ghost { background: var(--raised); color: var(--fg); }
       .solid { background: var(--accent); color: var(--accent-fg); }
-      .danger { background: transparent; color: var(--danger); }
-      .ghost:disabled, .solid:disabled { opacity: 0.5; cursor: not-allowed; }
       .hero { padding: 40px 0 8px; }
       .kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--subtle); margin: 0 0 8px; }
       h1 { font-size: clamp(36px, 6vw, 52px); letter-spacing: -0.03em; }
       .lede { max-width: 36rem; color: var(--muted); font-size: 14px; line-height: 1.65; margin: 12px 0 0; }
-      .panel {
-        margin-top: 28px; border: 1px solid var(--border); background: var(--surface);
-        border-radius: 24px; padding: 20px 22px;
-      }
-      .panel h2 { font-size: 15px; font-family: var(--sans); font-weight: 500; }
-      .panel p { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
-      .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-      input[type="password"], input[type="search"], input[type="text"] {
-        flex: 1; min-width: 180px; height: 42px; border-radius: 12px;
-        border: 1px solid var(--border); background: var(--raised); color: var(--fg);
-        padding: 0 14px; font-size: 14px; outline: none;
-      }
-      input:focus { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
-      .drop {
-        margin-top: 16px; border: 1px dashed var(--border); border-radius: 28px;
-        background: var(--surface); min-height: 168px; display: grid; place-items: center;
-        text-align: center; padding: 28px 16px; transition: border-color .2s, background .2s;
-      }
-      .drop.hot { border-color: var(--accent); background: var(--raised); }
-      .drop.disabled { opacity: 0.55; }
+      .drop { margin-top: 28px; border: 1px dashed var(--border); border-radius: 28px; background: var(--surface); min-height: 168px; display: grid; place-items: center; text-align: center; padding: 28px 16px; }
       .drop strong { font-family: var(--display); font-size: 24px; font-weight: 500; }
       .drop p { margin: 8px 0 16px; color: var(--muted); font-size: 14px; }
       .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 28px 0 16px; }
-      .chip {
-        height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border);
-        background: transparent; color: var(--muted); font-size: 13px;
-      }
+      .chip { height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; }
       .chip.on { background: var(--raised); color: var(--fg); border-color: transparent; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+      input[type="search"] { flex: 1; min-width: 160px; height: 42px; border-radius: 12px; border: 1px solid var(--border); background: var(--raised); color: var(--fg); padding: 0 14px; font-size: 14px; outline: none; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; }
       .card { overflow: hidden; border-radius: 24px; border: 1px solid var(--border); background: var(--surface); }
       .thumb { aspect-ratio: 16/10; background: var(--raised); display: grid; place-items: center; overflow: hidden; color: var(--subtle); }
       .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover; }
       .meta { padding: 14px 16px 16px; }
       .name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .url { margin-top: 6px; font-size: 12px; color: var(--muted); word-break: break-all; line-height: 1.45; }
-      .actions { display: flex; gap: 8px; margin-top: 12px; }
+      .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
       .empty { border-radius: 28px; border: 1px solid var(--border); background: var(--surface); padding: 64px 24px; text-align: center; }
       .empty h2 { font-size: 28px; }
       .empty p { color: var(--muted); margin: 8px auto 0; max-width: 28rem; font-size: 14px; }
-      .toast {
-        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-        background: var(--accent); color: var(--accent-fg); border-radius: 999px;
-        padding: 10px 16px; font-size: 13px; font-weight: 500; opacity: 0; pointer-events: none;
-        transition: opacity .2s;
-      }
+      .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--accent-fg); border-radius: 999px; padding: 10px 16px; font-size: 13px; font-weight: 500; opacity: 0; pointer-events: none; transition: opacity .2s; }
       .toast.show { opacity: 1; }
-      .toast.bad { background: var(--danger); color: white; }
-      .hint a { color: var(--fg); text-underline-offset: 3px; }
+      a.ghost { display: inline-flex; align-items: center; text-decoration: none; }
     </style>
   </head>
   <body>
@@ -138,45 +73,22 @@
           <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
           RGB Workshop
         </a>
-        <button class="ghost" id="adminBtn" type="button">工作室登入</button>
+        <button class="ghost" id="refreshBtn" type="button">刷新</button>
       </div>
     </header>
-
     <main class="wrap">
       <section class="hero">
         <p class="kicker">Media vault</p>
         <h1>媒體庫</h1>
-        <p class="lede">
-          上載相片、MP4 與 MP3，即時得到像 <strong>xxxxx.jpg</strong> 咁嘅直接檔案網址。任何人打開都係檔案本身，可以貼去網站、簡報或訊息。
-        </p>
+        <p class="lede">上載相片、MP4 與 MP3，即時得到像 <strong>xxxxx.jpg</strong> 咁嘅直接檔案網址。任何人打開都係檔案本身。</p>
       </section>
-
-      <section class="panel" id="adminPanel" hidden>
-        <h2>接駁 GitHub 之後就可以上載</h2>
-        <p class="hint">
-          用一個有 <code>hkrgb/rgb-workshop-media</code> Contents 寫入權限的 token。只會存在呢部裝置的瀏覽器，唔會上傳到呢個網站。
-          <a href="https://github.com/settings/tokens/new?scopes=repo&description=RGB%20Workshop" target="_blank" rel="noreferrer">開一個 token</a>
-        </p>
-        <form class="row" id="tokenForm">
-          <input id="tokenInput" type="password" autocomplete="off" placeholder="GitHub token" />
-          <button class="solid" type="submit">接駁</button>
-        </form>
-      </section>
-
-      <section class="panel" id="readyPanel" hidden>
-        <h2>已接駁 GitHub，可以上載</h2>
-        <p>檔案會公開放到 <a href="https://github.com/hkrgb/rgb-workshop-media" target="_blank" rel="noreferrer">hkrgb/rgb-workshop-media</a>，複製到的連結任何人都可以用。</p>
-      </section>
-
-      <div class="drop disabled" id="drop">
+      <div class="drop">
         <div>
-          <strong>將檔案拖入呢度</strong>
-          <p>支援 jpg / png / gif / webp / mp4 / mp3，每個最多 12 MB</p>
-          <button class="solid" id="pickBtn" type="button" disabled>選擇檔案</button>
-          <input id="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.svg,.mp4,.mp3,image/jpeg,image/png,image/gif,image/webp,image/svg+xml,video/mp4,audio/mpeg" multiple hidden />
+          <strong>上載檔案</strong>
+          <p>會開 GitHub 上載頁。用你平時個 Google／GitHub 帳戶登入就可以拖檔入去。上載完返嚟撳刷新，就可以複製直連。</p>
+          <a class="solid" href="https://github.com/hkrgb/rgb-workshop-media/upload/main" target="_blank" rel="noreferrer">選擇檔案</a>
         </div>
       </div>
-
       <div class="toolbar">
         <button class="chip on" data-filter="all" type="button">全部</button>
         <button class="chip" data-filter="image" type="button">相片</button>
@@ -184,260 +96,70 @@
         <button class="chip" data-filter="audio" type="button">音訊</button>
         <input id="search" type="search" placeholder="搜尋檔名" />
       </div>
-
       <div id="list"></div>
     </main>
     <div class="toast" id="toast"></div>
-
     <script>
       const OWNER = "hkrgb";
       const REPO = "rgb-workshop-media";
-      const BRANCH = "main";
-      const TOKEN_KEY = "rgb-workshop-github-token";
-      const MAX = 12 * 1024 * 1024;
-      const ALLOWED = {
-        "image/jpeg": "jpg",
-        "image/png": "png",
-        "image/gif": "gif",
-        "image/webp": "webp",
-        "image/svg+xml": "svg",
-        "video/mp4": "mp4",
-        "audio/mpeg": "mp3",
-        "audio/mp3": "mp3",
-      };
-      const EXT = {
-        jpg: "image", jpeg: "image", png: "image", gif: "image", webp: "image", svg: "image",
-        mp4: "video", mp3: "audio",
-      };
-
-      const $ = (id) => document.getElementById(id);
-      const toastEl = $("toast");
+      const EXT = { jpg: "image", jpeg: "image", png: "image", gif: "image", webp: "image", svg: "image", mp4: "video", mp3: "audio" };
       let items = [];
       let filter = "all";
-
-      function toast(msg, bad) {
+      const toastEl = document.getElementById("toast");
+      function toast(msg) {
         toastEl.textContent = msg;
-        toastEl.classList.toggle("bad", Boolean(bad));
         toastEl.classList.add("show");
         clearTimeout(toast.t);
         toast.t = setTimeout(() => toastEl.classList.remove("show"), 2200);
       }
-
-      function token() {
-        return (localStorage.getItem(TOKEN_KEY) || "").trim();
+      function kindOf(name) {
+        return EXT[(name.split(".").pop() || "").toLowerCase()] || null;
       }
-
-      function headers() {
-        const t = token();
-        const h = { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
-        if (t) h.Authorization = "Bearer " + t;
-        return h;
-      }
-
       function fileUrl(name, sha) {
         if (sha && /^[a-f0-9]{7,40}$/i.test(sha)) {
           return `https://cdn.jsdelivr.net/gh/${OWNER}/${REPO}@${sha}/${name}`;
         }
-        return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${name}`;
+        return `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${name}`;
       }
-
-      function kindOf(name) {
-        const ext = (name.split(".").pop() || "").toLowerCase();
-        return EXT[ext] || null;
-      }
-
-      function slugFor(file) {
-        const ext = (ALLOWED[file.type] || (file.name.split(".").pop() || "bin").toLowerCase()).replace("jpeg", "jpg");
-        const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        let s = "";
-        const buf = new Uint8Array(10);
-        crypto.getRandomValues(buf);
-        for (const n of buf) s += chars[n % chars.length];
-        return s + "." + (ext === "jpeg" ? "jpg" : ext);
-      }
-
-      function setAdminUI() {
-        const ok = Boolean(token());
-        $("adminPanel").hidden = ok;
-        $("readyPanel").hidden = !ok;
-        $("adminBtn").textContent = ok ? "已登入" : "工作室登入";
-        $("pickBtn").disabled = !ok;
-        $("drop").classList.toggle("disabled", !ok);
-      }
-
-      async function loadList() {
-        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/?ref=${BRANCH}`, { headers: headers() });
-        if (!res.ok) throw new Error("無法讀取媒體庫");
-        const rows = await res.json();
-        items = (Array.isArray(rows) ? rows : [])
-          .filter((row) => row.type === "file" && kindOf(row.name))
-          .map((row) => ({
-            name: row.name,
-            sha: row.sha,
-            size: row.size,
-            kind: kindOf(row.name),
-            url: fileUrl(row.name, row.sha),
-          }))
-          .reverse();
-        render();
-      }
-
       function render() {
-        const q = ($("search").value || "").trim().toLowerCase();
+        const q = (document.getElementById("search").value || "").trim().toLowerCase();
         const visible = items.filter((it) => {
           if (filter !== "all" && it.kind !== filter) return false;
           if (q && !it.name.toLowerCase().includes(q)) return false;
           return true;
         });
-        const root = $("list");
+        const root = document.getElementById("list");
         if (!visible.length) {
-          root.innerHTML = `<div class="empty"><h2>尚未有檔案</h2><p>上載之後會喺呢度出現，並得到一條公開直連，例如 xxxxx.jpg。</p></div>`;
+          root.innerHTML = `<div class="empty"><h2>尚未有檔案</h2><p>撳上面「選擇檔案」上載之後，返嚟刷新就可以複製直連，例如 xxxxx.jpg。</p></div>`;
           return;
         }
-        root.innerHTML = `<ul class="grid">${visible.map(card).join("")}</ul>`;
+        root.innerHTML = `<ul class="grid">${visible.map((it) => {
+          const media = it.kind === "image" ? `<img src="${it.url}" alt="${it.name}" />` : it.kind === "video" ? `<video src="${it.url}" muted playsinline></video>` : `<span>MP3</span>`;
+          return `<li class="card"><div class="thumb">${media}</div><div class="meta"><div class="name">${it.name}</div><div class="url">${it.url}</div><div class="actions"><button class="solid" data-copy="${it.url}" type="button">複製連結</button><a class="ghost" href="${it.url}" target="_blank" rel="noreferrer">打開</a></div></div></li>`;
+        }).join("")}</ul>`;
         root.querySelectorAll("[data-copy]").forEach((btn) => {
           btn.addEventListener("click", async () => {
-            const url = btn.getAttribute("data-copy");
-            await navigator.clipboard.writeText(url);
+            await navigator.clipboard.writeText(btn.getAttribute("data-copy"));
             toast("已複製檔案連結");
           });
         });
-        root.querySelectorAll("[data-del]").forEach((btn) => {
-          btn.addEventListener("click", () => removeFile(btn.getAttribute("data-del")));
-        });
       }
-
-      function card(it) {
-        const media =
-          it.kind === "image"
-            ? `<img src="${it.url}" alt="${it.name}" />`
-            : it.kind === "video"
-              ? `<video src="${it.url}" muted playsinline></video>`
-              : `<span>MP3</span>`;
-        const del = token() ? `<button class="danger" data-del="${it.name}" type="button">刪除</button>` : "";
-        return `<li class="card">
-          <div class="thumb">${media}</div>
-          <div class="meta">
-            <div class="name">${it.name}</div>
-            <div class="url">${it.url}</div>
-            <div class="actions">
-              <button class="solid" data-copy="${it.url}" type="button">複製連結</button>
-              <a class="ghost" href="${it.url}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;text-decoration:none;">打開</a>
-              ${del}
-            </div>
-          </div>
-        </li>`;
-      }
-
-      function toBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onerror = () => reject(new Error("讀取檔案失敗"));
-          reader.onload = () => {
-            const s = String(reader.result);
-            resolve(s.slice(s.indexOf(",") + 1));
-          };
-          reader.readAsDataURL(file);
+      async function loadList() {
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/?ref=main`, {
+          headers: { Accept: "application/vnd.github+json" },
         });
-      }
-
-      async function uploadFile(file) {
-        if (!token()) throw new Error("請先接駁 GitHub");
-        const mime = file.type || "";
-        const ext = (file.name.split(".").pop() || "").toLowerCase();
-        if (!ALLOWED[mime] && !EXT[ext]) throw new Error("不支援：" + file.name);
-        if (file.size > MAX) throw new Error(file.name + " 超過 12 MB");
-        const slug = slugFor(file);
-        const content = await toBase64(file);
-        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(slug)}`, {
-          method: "PUT",
-          headers: { ...headers(), "Content-Type": "application/json" },
-          body: JSON.stringify({ message: "add " + file.name, content, branch: BRANCH }),
-        });
-        if (!res.ok) {
-          if (res.status === 401 || res.status === 403) throw new Error("GitHub token 無效或權限不足");
-          throw new Error((await res.text()).slice(0, 180) || "上載失敗");
-        }
-        const body = await res.json();
-        const sha = body.commit && body.commit.sha;
-        const url = fileUrl(slug, sha);
-        items.unshift({ name: slug, sha, size: file.size, kind: kindOf(slug), url });
-        try { await navigator.clipboard.writeText(url); } catch {}
-        return url;
-      }
-
-      async function removeFile(name) {
-        if (!token()) return;
-        const meta = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(name)}?ref=${BRANCH}`, { headers: headers() });
-        if (!meta.ok) return;
-        const body = await meta.json();
-        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(name)}`, {
-          method: "DELETE",
-          headers: { ...headers(), "Content-Type": "application/json" },
-          body: JSON.stringify({ message: "remove " + name, sha: body.sha, branch: BRANCH }),
-        });
-        if (!res.ok) { toast("刪除失敗", true); return; }
-        items = items.filter((it) => it.name !== name);
+        if (!res.ok) throw new Error("無法讀取媒體庫");
+        const rows = await res.json();
+        items = (Array.isArray(rows) ? rows : [])
+          .filter((row) => row.type === "file" && kindOf(row.name))
+          .map((row) => ({ name: row.name, sha: row.sha, kind: kindOf(row.name), url: fileUrl(row.name, row.sha) }))
+          .reverse();
         render();
-        toast("已刪除");
       }
-
-      async function handleFiles(list) {
-        const files = Array.from(list || []);
-        if (!files.length) return;
-        if (!token()) {
-          $("adminPanel").hidden = false;
-          toast("請先接駁 GitHub", true);
-          return;
-        }
-        let ok = 0;
-        for (const file of files) {
-          try {
-            await uploadFile(file);
-            ok += 1;
-          } catch (err) {
-            toast(err.message || "上載失敗", true);
-          }
-        }
-        render();
-        if (ok === 1) toast("已上載，連結已複製");
-        else if (ok > 1) toast("已上載 " + ok + " 個檔案");
-        $("fileInput").value = "";
-      }
-
-      $("adminBtn").addEventListener("click", () => {
-        if (token()) {
-          localStorage.removeItem(TOKEN_KEY);
-          setAdminUI();
-          render();
-          toast("已登出");
-          return;
-        }
-        $("adminPanel").hidden = !$("adminPanel").hidden;
+      document.getElementById("refreshBtn").addEventListener("click", () => {
+        loadList().then(() => toast("已刷新")).catch((err) => toast(err.message));
       });
-
-      $("tokenForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const value = $("tokenInput").value.trim();
-        if (!value) return;
-        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, {
-          headers: { Accept: "application/vnd.github+json", Authorization: "Bearer " + value, "X-GitHub-Api-Version": "2022-11-28" },
-        });
-        if (!res.ok) { toast("Token 無效或沒有這個 repo 的權限", true); return; }
-        localStorage.setItem(TOKEN_KEY, value);
-        $("tokenInput").value = "";
-        setAdminUI();
-        toast("GitHub 已接駁");
-        loadList().catch(() => {});
-      });
-
-      $("pickBtn").addEventListener("click", () => $("fileInput").click());
-      $("fileInput").addEventListener("change", (e) => handleFiles(e.target.files));
-      const drop = $("drop");
-      ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("hot"); }));
-      ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("hot"); }));
-      drop.addEventListener("drop", (e) => handleFiles(e.dataTransfer.files));
-      $("search").addEventListener("input", render);
+      document.getElementById("search").addEventListener("input", render);
       document.querySelectorAll("[data-filter]").forEach((btn) => {
         btn.addEventListener("click", () => {
           filter = btn.getAttribute("data-filter");
@@ -445,10 +167,8 @@
           render();
         });
       });
-
-      setAdminUI();
       loadList().catch((err) => {
-        $("list").innerHTML = `<div class="empty"><h2>暫時讀唔到媒體庫</h2><p>${err.message}</p></div>`;
+        document.getElementById("list").innerHTML = `<div class="empty"><h2>暫時讀唔到媒體庫</h2><p>${err.message}</p></div>`;
       });
     </script>
   </body>
